@@ -1,4 +1,4 @@
-DRIVERS  = nvidia
+DRIVERS  = vdpau
 DRIVERS += s3g	# native VA-API driver is too old, so use VDPAU based one
 
 INCLUDES = \

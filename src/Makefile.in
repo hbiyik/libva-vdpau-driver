@@ -266,7 +266,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-DRIVERS = nvidia s3g # native VA-API driver is too old, so use VDPAU \
+DRIVERS = vdpau s3g # native VA-API driver is too old, so use VDPAU \
 	based one
 INCLUDES = \
 	$(VDPAU_VIDEO_CFLAGS)
