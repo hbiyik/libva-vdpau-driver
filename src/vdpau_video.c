@@ -377,6 +377,61 @@ vdpau_DestroySurfaces(
     return VA_STATUS_SUCCESS;
 }
 
+// vaQuerySurfaceAttributes
+VAStatus
+vdpau_QuerySurfaceAttributes(
+        VADriverContextP    ctx,
+	    VAConfigID          config,
+	    VASurfaceAttrib    *attrib_list,
+	    unsigned int       *num_attribs
+	)
+{
+    VdpBool is_supported;
+    VdpStatus status;
+    uint32_t max_w;
+    uint32_t max_h;
+    VdpChromaType format;
+
+    VDPAU_DRIVER_DATA_INIT;
+
+    if(num_attribs != NULL && attrib_list == NULL){
+        *num_attribs = 3;
+        return VA_STATUS_SUCCESS;
+    }
+        
+    if(*num_attribs != 3 || attrib_list == NULL)
+        return VA_STATUS_ERROR_ALLOCATION_FAILED;
+    
+    format = get_VdpChromaType(VA_RT_FORMAT_YUV420);
+    status = vdpau_video_surface_query_capabilities(driver_data,
+                                                    driver_data->vdp_device,
+                                                    format,
+                                                    &is_supported, &max_w, &max_h);
+    
+    if(!VDPAU_CHECK_STATUS(status, "vdpau_QuerySurfaceAttributes"))
+        return VA_STATUS_ERROR_ALLOCATION_FAILED;
+
+    if (attrib_list == NULL)
+        return VA_STATUS_ERROR_ALLOCATION_FAILED;
+
+    attrib_list[0].type =  VASurfaceAttribPixelFormat;
+    attrib_list[0].flags = 0;
+    attrib_list[0].value.type = VAGenericValueTypeInteger;
+    attrib_list[0].value.value.i = VA_FOURCC_YV12;
+
+    attrib_list[1].type =  VASurfaceAttribMaxWidth;
+    attrib_list[1].flags = 0;
+    attrib_list[1].value.type = VAGenericValueTypeInteger;
+    attrib_list[1].value.value.i = max_w;
+
+    attrib_list[2].type =  VASurfaceAttribMaxHeight;
+    attrib_list[2].flags = 0;
+    attrib_list[2].value.type = VAGenericValueTypeInteger;
+    attrib_list[2].value.value.i = max_h;
+
+    return VA_STATUS_SUCCESS;
+}
+
 // vaCreateSurfaces
 VAStatus
 vdpau_CreateSurfaces(

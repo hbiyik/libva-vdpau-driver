@@ -590,6 +590,7 @@ static VAStatus FUNC(Initialize)(VA_DRIVER_CONTEXT_P ctx)
     vtable->vaDestroyConfig                 = vdpau_DestroyConfig;
     vtable->vaGetConfigAttributes           = vdpau_GetConfigAttributes;
     vtable->vaCreateSurfaces                = vdpau_CreateSurfaces;
+	vtable->vaQuerySurfaceAttributes        = vdpau_QuerySurfaceAttributes;
     vtable->vaDestroySurfaces               = vdpau_DestroySurfaces;
     vtable->vaCreateContext                 = vdpau_CreateContext;
     vtable->vaDestroyContext                = vdpau_DestroyContext;

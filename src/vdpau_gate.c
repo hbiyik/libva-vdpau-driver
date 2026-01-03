@@ -48,6 +48,8 @@ int vdpau_gate_init(vdpau_driver_data_t *driver_data)
                   video_surface_create);
     VDP_INIT_PROC(VIDEO_SURFACE_DESTROY,
                   video_surface_destroy);
+    VDP_INIT_PROC(VIDEO_SURFACE_QUERY_CAPABILITIES,
+                  video_surface_query_capabilities);
     VDP_INIT_PROC(VIDEO_SURFACE_GET_BITS_Y_CB_CR,
                   video_surface_get_bits_ycbcr);
     VDP_INIT_PROC(VIDEO_SURFACE_PUT_BITS_Y_CB_CR,
@@ -208,6 +210,25 @@ vdpau_video_surface_create(
                         width,
                         height,
                         surface);
+}
+
+// VdpVideoSurfaceCreate
+VdpStatus
+vdpau_video_surface_query_capabilities(
+    vdpau_driver_data_t *driver_data,
+    VdpDevice     device,
+    VdpChromaType surface_chroma_type,
+    VdpBool *     is_supported,
+    uint32_t *    max_width,
+    uint32_t *    max_height
+)
+{
+    return VDPAU_INVOKE(video_surface_query_capabilities,
+                        device,
+                        surface_chroma_type,
+                        is_supported,
+                        max_width,
+                        max_height);
 }
 
 // VdpVideoSurfaceDestroy

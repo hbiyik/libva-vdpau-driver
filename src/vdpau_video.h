@@ -176,6 +176,15 @@ vdpau_CreateSurfaces(
     VASurfaceID        *surfaces
 ) attribute_hidden;
 
+// vaQuerySurfaceAttributes
+VAStatus
+vdpau_QuerySurfaceAttributes(
+    VADriverContextP    ctx,
+    VAConfigID          config,
+    VASurfaceAttrib    *attrib_list,
+    unsigned int       *num_attribs
+) attribute_hidden;
+
 // vaDestroySurfaces
 VAStatus
 vdpau_DestroySurfaces(

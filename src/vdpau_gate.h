@@ -36,6 +36,7 @@ struct vdpau_vtable {
     VdpVideoSurfaceDestroy              *vdp_video_surface_destroy;
     VdpVideoSurfaceGetBitsYCbCr         *vdp_video_surface_get_bits_ycbcr;
     VdpVideoSurfacePutBitsYCbCr         *vdp_video_surface_put_bits_ycbcr;
+    VdpVideoSurfaceQueryCapabilities    *vdp_video_surface_query_capabilities;
     VdpOutputSurfaceCreate              *vdp_output_surface_create;
     VdpOutputSurfaceDestroy             *vdp_output_surface_destroy;
     VdpOutputSurfaceGetBitsNative       *vdp_output_surface_get_bits_native;
@@ -137,6 +138,16 @@ vdpau_video_surface_create(
     uint32_t             width,
     uint32_t             height,
     VdpVideoSurface     *surface
+) attribute_hidden;
+
+VdpStatus
+vdpau_video_surface_query_capabilities(
+    vdpau_driver_data_p driver_data,
+    VdpDevice     device,
+    VdpChromaType surface_chroma_type,
+    VdpBool *     is_supported,
+    uint32_t *    max_width,
+    uint32_t *    max_height
 ) attribute_hidden;
 
 // VdpVideoSurfaceDestroy
